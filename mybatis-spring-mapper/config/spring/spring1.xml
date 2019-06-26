@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+	<!--加载数据库配置的信息配合文件 -->
+	<context:property-placeholder
+		location="classpath:spring/db.properties" />
+
+	<!--配置数据源 -->
+	<bean id="c3p0" class=" com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${driverClass}"></property>
+		<property name="jdbcUrl" value="${url}"></property>
+		<property name="user" value="${username}"></property>
+		<property name="password" value="${password}"></property>
+	</bean>
+
+
+	<!--配置sqlSessionFactory -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="c3p0"></property>
+		<!--配置mybtis的配置文件 -->
+		<property name="configLocation"
+			value="classpath:mybatis/sqlMapConfig.xml"></property>
+	</bean>
+
+	<!--配置mapper代理 -->
+	<bean id="mapper"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<!-- 注入sqlSessionFactory -->
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+
+		<property name="mapperInterface"
+			value="cn.zhou.dao.UserMapper"></property>
+	</bean>
+
+
+
+</beans>

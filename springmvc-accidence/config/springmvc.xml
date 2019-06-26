@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+           http://www.springframework.org/schema/beans/spring-beans.xsd  
+           http://www.springframework.org/schema/context  
+           http://www.springframework.org/schema/context/spring-context.xsd  
+           http://www.springframework.org/schema/mvc  
+           http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+	<!--配置controller 但是这种配置不方便，建议使用包扫描 -->
+	<!-- <bean class="cn.zhou.controller.AnnotationController"></bean> -->	<!--包扫描 controller -->
+
+	<context:component-scan
+		base-package="cn.zhou.controller"></context:component-scan>
+
+
+
+	<!--使用注解的适配器和映射器 -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"></bean> 
+		<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"></bean> -->
+
+	<!--但是使用 mvc:annotation-driven 可以代替上面两个配置，并且实际开发中使用的也是这个 -->
+	<mvc:annotation-driven></mvc:annotation-driven>
+
+	<!--*************3*3**3**3*3*3**33*3* -->
+
+
+
+	<!--配置benname -->
+	<bean id="controllerId" name="/fs"
+		class="cn.zhou.controller.UserController"></bean>
+
+	<!--根据第二个handler（controller） 配置bennam -->
+	<bean id="httpController"
+		class="cn.zhou.controller.HttpController"></bean>
+
+
+
+	<!--配置处理器映射器 进行url映射 第一种:BeanNameUrlHandlerMapping -->
+	<bean
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"></bean>
+
+	<!--配置处理器映射器第二种：SimpleUrlHandlerMapping -->
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/controller1">controllerId</prop>
+				<prop key="/controller2">controllerId</prop>
+				<prop key="http"> httpController </prop>
+			</props>
+		</property>
+	</bean>
+
+	<!--配置 处理器适配器 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"></bean>
+
+	<!--第二种适配器 : httprequesthandleradapter -->
+	<bean
+		class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter"></bean>
+
+
+
+	<!--视图解析器 解析jsp 默认解析 jstl标签 classpath下面需要有 stljat包 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"></bean>
+
+</beans>

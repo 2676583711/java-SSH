@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+	welcom to the login
+	<br />
+
+	<!-- <a href="/add">去添加</a>
+	<br />
+
+	<a href="/update">去更新</a> -->
+	
+	<h3 th:text="${error}"></h3>
+	<form action="/manage" method="post">
+	 用户名：<input name="username" type="text" /> <br/>
+	 密　码：<input name="password" type="password"/> <br/>
+	 <input type="submit" value="submit">
+	</form>
+
+</body>
+</html>

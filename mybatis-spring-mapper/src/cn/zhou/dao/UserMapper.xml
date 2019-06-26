@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--mybatis 的mapper代理 的规范：
+ 1. namespace="mapper接口的路径（java类的路径）"
+  2. 接口中所要调用的方法名称必须与sql语句的id一致 -->
+
+<mapper namespace="cn.zhou.dao.UserMapper">
+
+	<select id="find" resultType="cn.zhou.entity.User">
+		select * from m_user
+	</select>
+</mapper>

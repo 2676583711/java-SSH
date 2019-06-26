@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration  
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!--mybatis配置文件加载映射文件 -->
+	<mappers>
+		<!-- <mapper resource="cn/zhou/dao/UserDao.xml" /> -->
+		<!--由于映射文件，遵守约定，所以此处直接加载与mapper对应的java接口即可 
+		根据接口，找到映射文件 -->
+
+	</mappers>
+
+
+</configuration>

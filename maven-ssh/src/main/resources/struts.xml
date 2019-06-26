@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+	<package name="first" extends="struts-default" namespace="/">
+
+		<action name="/AAction_*" class="AAction" method="{1}">
+
+
+			<result name="success">/a.jsp</result>
+			<result name="ok">/c.jsp</result>
+			<!-- <result name="add">/b.jsp</result> -->
+			<!--struts2 2.3版本之后必须使用<allowed-methods>标签同意需要访问的方法才能使用通配符 -->
+			<allowed-methods>find, add</allowed-methods>
+		</action>
+
+		<action name="/BServlet" class="cn.zhou.action.BServlet">
+
+		</action>
+	</package>
+
+
+
+</struts>

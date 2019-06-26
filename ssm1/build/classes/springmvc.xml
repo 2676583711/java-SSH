@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- 这个配置文件是非注解版本的,第一种处理器映射器、适配器 -->
+
+
+
+
+
+	<!--2.配置handler 与实际的Controller实现类的全限定名进行相关的映射 -->
+	<bean name="/userController"
+		class="cn.zhou.controller.UserController">
+		<property name="user" ref="user"></property>
+		<property name="userDao" ref="mapper1"></property>
+	</bean>
+
+
+	<!--1.配置处理器映射器beanNameUrlHandlerMapping -->
+	<bean
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"></bean>
+
+
+	<!--3.配置处理器适配器simplecontrollerhandleradapter -->
+	<bean
+		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"></bean>
+
+	<!--4.配置视图解析器 -->
+	<bean
+		class=" org.springframework.web.servlet.view.InternalResourceViewResolver"></bean>
+
+
+</beans>

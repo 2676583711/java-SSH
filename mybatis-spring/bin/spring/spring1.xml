@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+
+
+	<!--配置数据库连接池 -->
+	<bean id="c3p0" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl"
+			value="jdbc:mysql://localhost:3306/zhou"></property>
+		<property name="user" value="root"></property>
+		<property name="password" value="zhou123"></property>
+	</bean>
+
+
+	<!--配置sqlsessionFactory -->
+	<bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!--数据源 （连接池） -->
+		<property name="dataSource" ref="c3p0"></property>
+		<!--加载mybatis配置文件 -->
+		<property name="configLocation"
+			value="classpath:mybatis/sqlMapConfig.xml"></property>
+	</bean>
+
+
+	<!--配置sqlSession -->
+	<!-- <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"> 
+		<constructor-arg index="0" ref="ssf"></constructor-arg> </bean> -->
+
+	<bean id="ss" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="ssf" />
+	</bean>
+
+	<!--配置dao具体实现类的实体类对象 -->
+	<bean id="userDao" class="cn.zhou.dao.UserDaoImpl">
+
+		<!-- 注入SqlSessionFactory -->
+		<!-- <property name="sqlSessionFactory" ref="ssf"></property> -->
+
+		<!-- 注入SqlSession -->
+		<property name="ss" ref="ss"></property>
+	</bean>
+
+
+
+
+
+
+
+
+</beans>

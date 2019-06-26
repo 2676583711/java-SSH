@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax校验测试</title>
+
+    <script src="WEB-INF/js/verify.js"></script>
+    <script src="WEB-INF/js/jquery-3.3.1.min.js"></script>
+
+
+</head>
+<body>
+
+this is a html
+
+
+<h1>普通校验</h1>
+
+<form action="/AServlet" method="get">
+    <input type="text" name="name"/> <br/>
+    <input type="submit" value="提交"/>
+</form>
+
+<hr/>
+
+
+<h1>ajax校验</h1>
+<input type="text" id="username"/> <span id="span"></span><br/>
+<input type="button" value="submit" onclick="verify()"/>
+
+
+</body>
+</html>

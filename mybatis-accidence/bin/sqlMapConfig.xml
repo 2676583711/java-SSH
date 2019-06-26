@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration  
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<!--加载属性文件 -->
+	<properties resource="db.properties"></properties>
+
+
+	<!-- <settings></settings> 全局变量设值，比如:延迟加载的开启 -->
+	<!-- <settings> 开启延迟加载 <setting name="lazyLoadingEnabled" value="true" /> 
+		积极加载变成消极加载（按需加载） <setting name="aggressiveLazyLoading" value="false" /> 开启二级缓存的总开关,默认为true，（默认是开启的,所以其实也可以不设置）， 
+		另外如果需要使用二级缓存，还需要在具体的usermapp.xml 使用<cache/> 标签开启具体的二级缓存 因为二级缓存空间是根据namespace各自开辟的 
+		<setting name="cacheEnabled" value="true" /> </settings> -->
+
+	<!-- 别名定义 -->
+	<!-- <typeAliases> -->		<!--单个别名定义 -->
+		<!-- <typeAlias type="cn.zhou.entity.User" alias="u" /> -->
+
+		<!-- 批量（多个）定义 -->
+	<!-- <package name="cn.zhou.entity" /> -->
+	<!-- </typeAliases> -->
+
+
+
+	<!--配置数据库的环境，并切设值默认的执行环境 -->
+	<environments default="enviroment">
+		<!--设值的第一个数据库环境，这个环境可以设值多个 -->
+		<environment id="enviroment">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+
+				<!-- <property name="driver" value="com.mysql.jdbc.Driver" /> <property 
+					name="url" value="jdbc:mysql://localhost:3306/zhou?useSSL=true" /> <property 
+					name="username" value="root" /> <property name="password" value="zhou123" 
+					/> -->
+
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="user.xml" />
+		<!-- <mapper resource="userMapper.xml" /> -->
+
+		<!-- 使用clas加载配置文件,前提是使用的mapper接口代理的方法 -->
+		<!-- <mapper class="cn.zhou.dao.UserMapper" /> -->
+		
+		<!--批量加载 -->
+		<!-- <package name="cn.zhou.dao" /> -->
+	</mappers>
+</configuration>

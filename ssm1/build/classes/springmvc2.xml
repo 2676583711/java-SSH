@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- 这个配置文件是非注解版本的，这个配置文件配置第二种处理器映射器和适配器。 注意：处理器映射器、适配器、试图解析器都有多个版本 -->
+
+	<mvc:annotation-driven />
+	<context:annotation-config/>
+	<!--配置处理器（ｈａｎｄｌｅｒ） -->
+	<bean id="httpHandler" class="cn.zhou.controller.HttpHandler">
+		<property name="user" ref="user"></property>
+		<property name="userDao" ref="mapper1"></property>
+	</bean>
+
+
+	<!-- org.springframework.web.servlet.handler.SimpleUrlHandlerMapping 第二种处理器映射器,可以映射多个访问路径(url) -->
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<!--key此处的ｋｅｙ是ｕｒｌ访问路径，标签内容的handler的ｉｄ名称 -->
+
+				<prop key="/httpHandler">httpHandler</prop>
+				<prop key="/httpHandler2">httpHandler</prop>
+				<prop key="/httpHandler3">httpHandler</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!--httprequesthadleradapter 第二种处理器适配器， 注意:如果使用这个适配器，那么实际的handler就要实现另外的一个接口：HttpRequestHandler -->
+	<bean
+		class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter"></bean>
+
+	<!--配置视图解析器，由于仅仅学会ｊｓｐ，所以一个视图解析器就够了 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"></bean>
+</beans>

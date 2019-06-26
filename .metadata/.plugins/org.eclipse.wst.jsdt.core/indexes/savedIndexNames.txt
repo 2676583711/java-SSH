@@ -1,0 +1,1 @@
+INDEX VERSION 1.4+/home/zhou/workspace/program/java/java-EE/SSM/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--使用mapper接口有四个规范 1.namespace=mapper接口的类路径 2. mapper接口定义的方法名与 id相等 3. mapper接口中的方法传参 
+	与 parameterType相等 4. maper接口的返回值与 resultType相等 -->
+
+<!--命名空间 等于mapper接口的类路径 -->
+<mapper namespace="cn.zhou.dao.UserMapper">
+
+
+	<!--开启具体的usemapper下的二级缓存空间,另外的还需要给JavaBean实体类实现序列化接口 -->
+	<cache></cache>
+
+	<!--定义sql语句片段 -->
+	<sql id="sql">
+		<if test="user.id!=null">
+			and id=#{user.id}
+		</if>
+		<if test="user.username!=null">
+			and username= #{user.username}
+		</if>
+		<!--foreach拼接 , collection:需要遍历的集合名称 item:每次遍历的集合的变量名 open:sql语句的拼接开始标志（从哪里开始的拼接） 
+			close:sql语句的结束标志（从哪里结束的拼接） spearator:sql语句中间的连接符 -->
+		<foreach collection="id" item="item_id" open="and (" close=")"
+			separator="or">
+			id=#{item_id}
+		</foreach>
+	</sql>
+
+	<!--按照id查询，#{value} 表示一个占位符号 -->
+	<!-- useCache="flase" 禁用二级缓存，这个查询操作每次都是直接从数据库查询最新的数据 -->
+	<!--flushCache="true" 缓存刷新，避免脏读  -->
+	<select id="find1" parameterType="baouser" resultType="user"
+		useCache="flase" flushCache="true">
+		select *from
+		m_user
+		<!--动态sql，使用判断语句判断所需拼接的sql语句 -->
+		<where>
+			<!--引用sql片段 -->
+			<include refid="sql"></include>
+
+		</where>
+
+	</select>
+
+
+
+
+	<!--使用resultMap查询 -->
+
+	<!--定义resultMap -->
+	<resultMap type="User" id="resultMap">
+		<result column="name" property="username" />
+	</resultMap>
+
+	<!--使用resultMap -->
+	<select id="findByResultMap" parameterType="int"
+		resultMap="resultMap">
+
+		select username name from m_user where id=#{id}
+
+	</select>
+
+</mapper>
